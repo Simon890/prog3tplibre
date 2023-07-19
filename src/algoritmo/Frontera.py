@@ -20,7 +20,7 @@ class Frontera:
             if nodo[1] < mejor[1]:
                 mejor = nodo
         self.nodos.remove(mejor)
-        return mejor
+        return mejor[0]
     
     def vacia(self) -> bool:
         return len(self.nodos) == 0
