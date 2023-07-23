@@ -1,24 +1,25 @@
 from src.algoritmo.Tabu import Tabu
-from src.algoritmo.Frontera import Frontera
-from src.Nodo import Nodo
 from src.algoritmo.Problema import Problema
 from src.algoritmo.AEstrella import AEstrella
-from src.algoritmo.Accion import Accion
+import sys
 
-# f = Frontera()
-# # f.encolar(Nodo(), 3)
-# # f.encolar(Nodo(), 5)
-# # f.encolar(Nodo(), 1)
-# # print(p.test_objetivo([[1, 3, 2], [4, 5, 6], [7, 8, 0]]))
-# print(p.acciones(Nodo(0, [[1, 3, 2], [4, 5, 6], [7, 0, 8]], None)))
-# # print(f.desencolar(), f.desencolar(), f.desencolar(), f.desencolar())
+ESTADO = [
+    [1, 5, 8], 
+    [7, 0, 6], 
+    [2, 4, 3]
+]
 
-# p = Problema([[1, 5, 8], [7, 0, 6], [2, 4, 3]])
-p = Problema([[1, 2, 3], [5, 6, 0], [7, 8, 4]])
 
-# algo = AEstrella(p)
-# solucion = algo.resolver()
-# solucion.mostrarJugada()
-algo = Tabu(p)
+algoritmo = sys.argv[1] if len(sys.argv) == 2 else "aestrella"
+p = Problema(ESTADO)
+algo = None
+
+if algoritmo == "tabu":
+    print("ALGORITMO TABÚ\n")
+    algo = Tabu(p)
+elif algoritmo == "aestrella":
+    print("ALGORITMO A ESTRELLA\n")
+    algo = AEstrella(p)
+
 solucion = algo.resolver()
 solucion.mostrarJugada()

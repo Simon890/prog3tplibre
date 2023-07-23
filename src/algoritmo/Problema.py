@@ -35,15 +35,15 @@ class Problema:
         if p_cero == (1, 1): return [Accion.ARRIBA, Accion.ABAJO, Accion.IZQ, Accion.DER]
         
         #Si el cero está en las esquinas:
-        if p_cero == (0, 0): return [Accion.DER, Accion.ABAJO]
+        if p_cero == (0, 0): return [Accion.ABAJO, Accion.DER]
         if p_cero == (2, 0): return [Accion.ARRIBA, Accion.DER]
-        if p_cero == (2, 2): return [Accion.IZQ, Accion.ARRIBA]
-        if p_cero == (0, 2): return [Accion.IZQ, Accion.ABAJO]
+        if p_cero == (2, 2): return [Accion.ARRIBA, Accion.IZQ]
+        if p_cero == (0, 2): return [Accion.ABAJO, Accion.IZQ]
         
         #Si el cero está en las aristas:
         if p_cero == (1, 0): return [Accion.ARRIBA, Accion.ABAJO, Accion.DER]
-        if p_cero == (0, 1): return [Accion.IZQ, Accion.DER, Accion.ABAJO]
-        if p_cero == (1, 2): return [Accion.ARRIBA, Accion.IZQ, Accion.ABAJO]
+        if p_cero == (0, 1): return [Accion.ABAJO, Accion.IZQ, Accion.DER]
+        if p_cero == (1, 2): return [Accion.ARRIBA, Accion.ABAJO, Accion.IZQ]
         if p_cero == (2, 1): return [Accion.ARRIBA, Accion.IZQ, Accion.DER]
     
     def costo(self, estado: Estado, accion: Accion):
