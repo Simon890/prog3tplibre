@@ -3,6 +3,7 @@ from ..Nodo import Nodo
 from typing import Tuple
 from .Accion import Accion
 from copy import deepcopy
+from random import randint
 
 class Problema:
     """
@@ -71,6 +72,20 @@ class Problema:
             nuevo_estado[p_cero[0]][p_cero[1]] = val
             nuevo_estado[p_cero[0] - 1][p_cero[1]] = 0
             return nuevo_estado
+    
+    def estado_random(self):
+        usados = []
+        matriz = []
+        for i in range(3):
+            fila = []
+            while len(fila) != 3:
+                nro = randint(0, 8)
+                if nro not in usados:
+                    fila.append(nro)
+                    usados.append(nro)
+            matriz.append(fila)
+        return matriz
+                
 
     def _encontrar_cero(self, estado: Estado) -> Tuple[int, int]:
         for i, fila in enumerate(estado):

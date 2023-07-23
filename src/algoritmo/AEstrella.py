@@ -1,17 +1,14 @@
-from .Problema import Problema
 from .Estado import Estado
 from ..Nodo import Nodo
 from .Frontera import Frontera
 from .Fallo import Fallo
 from .Solucion import Solucion
 from typing import List, Tuple
+from .Algoritmo import Algoritmo
 
-class AEstrella:
-    problema: Problema
-    alcanzados: List[Tuple[Estado, Nodo]]
+class AEstrella(Algoritmo):
     
-    def __init__(self, problema: Problema):
-        self.problema = problema
+    alcanzados: List[Tuple[Estado, Nodo]]
     
     def resolver(self):
         raiz = Nodo(0, self.problema.estado_inicial, None, None)
@@ -31,12 +28,6 @@ class AEstrella:
                     self.alcanzados.append([hijo.estado, hijo])
                     frontera.encolar(hijo, hijo.costo + self._heuristica(hijo.estado))
     
-    def _heuristica(self, estado: Estado):
-        costo = 0
-        for i, fila in enumerate(self.problema.ESTADO_FINAL):
-            for j, val in enumerate(fila):
-                if val != estado[i][j]: costo += 1
-        return costo
 
     def _checkAlcanzados(self, nodo: Nodo):
         for alcanzado in self.alcanzados:
