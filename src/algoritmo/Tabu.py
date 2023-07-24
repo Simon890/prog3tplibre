@@ -20,7 +20,6 @@ class Tabu(Algoritmo):
                 nuevo_estado = self.problema.resultado(actual.estado, accion)
                 if nuevo_estado not in tabu:
                     acciones_cand.append((accion, self._heuristica(nuevo_estado)))
-            if len(acciones_cand) == 0: print(len(acciones_cand))
             if not acciones_cand:
                 acciones_cand = [(accion, self._heuristica(self.problema.resultado(actual.estado, accion))) for accion in acciones]
             
