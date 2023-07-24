@@ -8,6 +8,8 @@
 ## Alumno:
 * Simón Revello
 
+### Repositorio https://github.com/Simon890/prog3tplibre/
+
 ### Enunciado: Resolver el 8-puzzle utilizando los algoritmos A* y Tabú. Además, verificar que el estado inicial posea solución
 
 --- 
