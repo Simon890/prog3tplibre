@@ -12,7 +12,7 @@ class Tabu(Algoritmo):
     def resolver(self):
         actual = Nodo(0, self.problema.estado_inicial, None, None)
         tabu = [actual.estado]
-        for _ in range(self.IT_MAX):
+        for _ in range(self.IT_MAX): #Criterio de parada
             acciones = self.problema.acciones(actual)
             acciones_cand = []
 

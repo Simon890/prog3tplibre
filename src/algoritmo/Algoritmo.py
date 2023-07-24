@@ -14,9 +14,15 @@ class Algoritmo:
     
     @abstractmethod
     def resolver(self):
+        """
+        Implementa el algoritmo de resolución
+        """
         pass
     
     def _heuristica(self, estado: Estado):
+        """
+        Retorna el valor heurístico de un estado
+        """
         costo = 0
         for i, fila in enumerate(self.problema.ESTADO_FINAL):
             for j, val in enumerate(fila):

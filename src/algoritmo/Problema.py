@@ -1,9 +1,10 @@
 from .Estado import Estado
 from ..Nodo import Nodo
-from typing import Tuple
+from typing import Tuple, List
 from .Accion import Accion
 from copy import deepcopy
 from random import randint
+import itertools
 
 class Problema:
     """
@@ -18,6 +19,7 @@ class Problema:
         estado_inicial: Estado desde donde se inicia el problema
         """
         self.estado_inicial = estado_inicial
+        if not self._check_paridad(): raise Exception("El problema no posee paridad")
     
     def test_objetivo(self, estado: Estado):
         """
@@ -28,7 +30,10 @@ class Problema:
                 if nro != estado[i][j]: return False
         return True
 
-    def acciones(self, nodo: Nodo) -> Tuple[Accion]:
+    def acciones(self, nodo: Nodo) -> List[Accion]:
+        """
+        Retorna una lista de acciones posibles que se pueden realizar en un estado particular
+        """
         p_cero = self._encontrar_cero(nodo.estado)
         
         #Si el cero está en el centro:
@@ -50,6 +55,9 @@ class Problema:
         return 1 #El costo siempre es uno para cualquier acción
 
     def resultado(self, estado: Estado, accion: Accion) -> Estado:
+        """
+        Retorna un nuevo estado resultado de haber aplicado una acción a un estado anterior.
+        """
         p_cero = self._encontrar_cero(estado)
         nuevo_estado : Estado = deepcopy(estado)
         if accion == Accion.DER:
@@ -72,23 +80,25 @@ class Problema:
             nuevo_estado[p_cero[0]][p_cero[1]] = val
             nuevo_estado[p_cero[0] - 1][p_cero[1]] = 0
             return nuevo_estado
-    
-    def estado_random(self):
-        usados = []
-        matriz = []
-        for i in range(3):
-            fila = []
-            while len(fila) != 3:
-                nro = randint(0, 8)
-                if nro not in usados:
-                    fila.append(nro)
-                    usados.append(nro)
-            matriz.append(fila)
-        return matriz
-                
 
     def _encontrar_cero(self, estado: Estado) -> Tuple[int, int]:
+        """
+        Retorna una tupla indicando la posición del número cero (vacío)
+        """
         for i, fila in enumerate(estado):
             for j, nro in enumerate(fila):
                 if nro == 0: return (i, j)
         raise Exception("No hay un cero en el estado")
+    
+    def _check_paridad(self):
+        """
+        Verifica que el estado inicial cumpla con la condición de paridad.
+        (Tiene cantidad par de inversiones)
+        """
+        inicial = list(itertools.chain(*self.estado_inicial))
+        inver_inicial = 0
+        for i in range(len(inicial)):
+            for j in range(i + 1, len(inicial)):
+                if inicial[i] > inicial[j] and inicial[i] != 0 and inicial[j] != 0:
+                    inver_inicial += 1
+        return inver_inicial % 2 == 0
